@@ -28,8 +28,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.ktor.client.core)
-                implementation(libs.kotlinx.serialization.json)
+                api(libs.ktor.client.core)
+                implementation(libs.ktor.client.contentnegotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                api(libs.kotlinx.serialization.json)
             }
         }
         val commonTest by getting {
