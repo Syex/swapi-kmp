@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "io.github.syex"
-version = "0.1.0"
+version = "0.1.0-SNAPSHOT"
 
 kotlin {
     jvm()
@@ -78,28 +78,28 @@ mavenPublishing {
     coordinates(group.toString(), "swapi", version.toString())
 
     pom {
-        name = "My library"
-        description = "A library."
-        inceptionYear = "2024"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
+        name = "SWAPI KMP"
+        description = "A Kotlin Multiplatform wrapper for the Star Wars API."
+        inceptionYear = "2025"
+        url = "https://github.com/Syex/swapi-kmp"
         licenses {
             license {
-                name = "XXX"
-                url = "YYY"
-                distribution = "ZZZ"
+                name = "MIT"
+                url = "https://opensource.org/license/mit"
+                distribution = "https://opensource.org/license/mit"
             }
         }
         developers {
             developer {
-                id = "XXX"
-                name = "YYY"
-                url = "ZZZ"
+                id = "Syex"
+                name = "Tom Seifert"
+                url = "https://github.com/Syex"
             }
         }
         scm {
-            url = "XXX"
-            connection = "YYY"
-            developerConnection = "ZZZ"
+            url = "https://github.com/Syex/swapi-kmp"
+            connection = "scm:git:git://github.com/Syex/swapi-kmp.git"
+            developerConnection = "scm:git:git://github.com/Syex/swapi-kmp.git"
         }
     }
 }
