@@ -32,15 +32,23 @@ kotlin {
                 implementation(libs.ktor.client.contentnegotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 api(libs.kotlinx.serialization.json)
+                api(libs.kotlinx.datetime)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(libs.kotlin.test)
+                implementation(libs.kotest)
             }
         }
 
         val jvmMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.okhttp)
+            }
+        }
+
+        val androidMain by getting {
             dependencies {
                 implementation(libs.ktor.client.okhttp)
             }
