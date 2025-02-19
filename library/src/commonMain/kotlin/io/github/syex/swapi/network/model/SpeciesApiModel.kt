@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/** The API model for a species. */
 @Serializable
 data class SpeciesApiModel(
     @SerialName("average_height")
@@ -29,4 +30,15 @@ data class SpeciesApiModel(
     @SerialName("skin_colors")
     val skinColors: String,
     val url: String
+)
+
+/**
+ * An _expanded_ model contains the originally requested species data along with additional
+ * details about their homeworld, people, and films.
+ */
+data class ExpandedSpeciesApiModel(
+    val original: SpeciesApiModel,
+    val homeworld: PlanetApiModel,
+    val people: List<PeopleApiModel>,
+    val films: List<FilmApiModel>,
 )

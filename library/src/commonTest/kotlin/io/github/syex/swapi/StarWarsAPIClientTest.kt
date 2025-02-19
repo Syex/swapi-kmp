@@ -1,6 +1,5 @@
 package io.github.syex.swapi
 
-import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldNotBeEmpty
@@ -21,7 +20,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/people",
-                contentBuilder = { buildPagedJsonResponse(peopleJson) }
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.peopleJson) }
             )
         }
 
@@ -36,7 +35,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/people/1",
-                contentBuilder = { peopleJson }
+                contentBuilder = { TestDataProvider.peopleJson }
             )
         }
 
@@ -55,9 +54,9 @@ class StarWarsAPIClientTest {
         model.created shouldBe Instant.parse("2014-12-09T13:50:51.644000Z")
         model.edited shouldBe Instant.parse("2014-12-10T13:52:43.172000Z")
         model.speciesUrls shouldBe listOf("https://swapi.dev/api/species/1/")
-        model.starshipUrls shouldBe listOf("https://swapi.dev/api/starships/12/")
+        model.starshipUrls shouldBe listOf("https://swapi.dev/api/starships/1/")
         model.url shouldBe "https://swapi.dev/api/people/1/"
-        model.vehicleUrls shouldBe listOf("https://swapi.dev/api/vehicles/14/")
+        model.vehicleUrls shouldBe listOf("https://swapi.dev/api/vehicles/1/")
     }
 
     @Test
@@ -65,7 +64,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/films",
-                contentBuilder = { buildPagedJsonResponse(filmJson) }
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.filmJson) }
             )
         }
 
@@ -80,7 +79,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/films/1",
-                contentBuilder = { filmJson }
+                contentBuilder = { TestDataProvider.filmJson }
             )
         }
 
@@ -95,11 +94,11 @@ class StarWarsAPIClientTest {
         model.planetUrls shouldBe listOf("https://swapi.dev/api/planets/1/")
         model.producer shouldBe "Gary Kurtz, Rick McCallum"
         model.releaseDate shouldBe LocalDate.parse("1977-05-25")
-        model.specieUrls shouldBe listOf("https://swapi.dev/api/species/1/")
-        model.starshipUrls shouldBe listOf("https://swapi.dev/api/starships/2/")
+        model.speciesUrls shouldBe listOf("https://swapi.dev/api/species/1/")
+        model.starshipUrls shouldBe listOf("https://swapi.dev/api/starships/1/")
         model.title shouldBe "A New Hope"
         model.url shouldBe "https://swapi.dev/api/films/1/"
-        model.vehicleUrls shouldBe listOf("https://swapi.dev/api/vehicles/4/")
+        model.vehicleUrls shouldBe listOf("https://swapi.dev/api/vehicles/1/")
     }
 
     @Test
@@ -107,7 +106,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/starships",
-                contentBuilder = { buildPagedJsonResponse(starshipJson) }
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.starshipJson) }
             )
         }
 
@@ -122,7 +121,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/starships/1",
-                contentBuilder = { starshipJson }
+                contentBuilder = { TestDataProvider.starshipJson }
             )
         }
 
@@ -143,9 +142,9 @@ class StarWarsAPIClientTest {
         model.name shouldBe "Death Star"
         model.passengers shouldBe "843342"
         model.filmUrls.shouldNotBeEmpty()
-        model.pilotUrls.shouldBeEmpty()
+        model.pilotUrls.shouldNotBeEmpty()
         model.starshipClass shouldBe "Deep Space Mobile Battlestation"
-        model.url shouldBe "https://swapi.dev/api/starships/9/"
+        model.url shouldBe "https://swapi.dev/api/starships/1/"
     }
 
     @Test
@@ -153,7 +152,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/vehicles",
-                contentBuilder = { buildPagedJsonResponse(vehicleJson) }
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.vehicleJson) }
             )
         }
 
@@ -168,7 +167,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/vehicles/1",
-                contentBuilder = { vehicleJson }
+                contentBuilder = { TestDataProvider.vehicleJson }
             )
         }
 
@@ -186,9 +185,9 @@ class StarWarsAPIClientTest {
         model.model shouldBe "Digger Crawler"
         model.name shouldBe "Sand Crawler"
         model.passengers shouldBe "30"
-        model.pilotUrls.shouldBeEmpty()
+        model.pilotUrls.shouldNotBeEmpty()
         model.filmUrls.shouldNotBeEmpty()
-        model.url shouldBe "https://swapi.dev/api/vehicles/4/"
+        model.url shouldBe "https://swapi.dev/api/vehicles/1/"
         model.vehicleClass shouldBe "wheeled"
     }
 
@@ -197,7 +196,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/species",
-                contentBuilder = { buildPagedJsonResponse(speciesJson) }
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.speciesJson) }
             )
         }
 
@@ -212,7 +211,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/species/1",
-                contentBuilder = { speciesJson }
+                contentBuilder = { TestDataProvider.speciesJson }
             )
         }
 
@@ -226,13 +225,13 @@ class StarWarsAPIClientTest {
         model.edited shouldBe Instant.parse("2014-12-10T16:44:31.486000Z")
         model.eyeColors shouldBe "blue, green, yellow, brown, golden, red"
         model.hairColors shouldBe "black, brown"
-        model.homeworldUrl shouldBe "https://swapi.dev/api/planets/14/"
+        model.homeworldUrl shouldBe "https://swapi.dev/api/planets/1/"
         model.language shouldBe "Shyriiwook"
         model.name shouldBe "Wookie"
         model.peopleUrls.shouldNotBeEmpty()
         model.filmUrls.shouldNotBeEmpty()
         model.skinColors shouldBe "gray"
-        model.url shouldBe "https://swapi.dev/api/species/3/"
+        model.url shouldBe "https://swapi.dev/api/species/1/"
     }
 
     @Test
@@ -240,7 +239,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/planets",
-                contentBuilder = { buildPagedJsonResponse(planetJson) }
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.planetJson) }
             )
         }
 
@@ -255,7 +254,7 @@ class StarWarsAPIClientTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
                 expectedRequestUrl = "https://swapi.dev/api/planets/1",
-                contentBuilder = { planetJson }
+                contentBuilder = { TestDataProvider.planetJson }
             )
         }
 
@@ -301,158 +300,4 @@ class StarWarsAPIClientTest {
             }
         """.trimIndent()
     }
-
-    private val peopleJson = """
-        {
-            "birth_year": "19 BBY",
-            "eye_color": "Blue",
-            "films": [
-                "https://swapi.dev/api/films/1/"
-            ],
-            "gender": "Male",
-            "hair_color": "Blond",
-            "height": "172",
-            "homeworld": "https://swapi.dev/api/planets/1/",
-            "mass": "77",
-            "name": "Luke Skywalker",
-            "skin_color": "Fair",
-            "created": "2014-12-09T13:50:51.644000Z",
-            "edited": "2014-12-10T13:52:43.172000Z",
-            "species": [
-                "https://swapi.dev/api/species/1/"
-            ],
-            "starships": [
-                "https://swapi.dev/api/starships/12/"
-            ],
-            "url": "https://swapi.dev/api/people/1/",
-            "vehicles": [
-                "https://swapi.dev/api/vehicles/14/"
-            ]
-        }
-    """.trimIndent()
-
-    private val filmJson = """
-        {
-            "characters": [
-                "https://swapi.dev/api/people/1/"
-            ],
-            "created": "2014-12-10T14:23:31.880000Z",
-            "director": "George Lucas",
-            "edited": "2014-12-12T11:24:39.858000Z",
-            "episode_id": 4,
-            "opening_crawl": "It is a period of civil war...",
-            "planets": [
-                "https://swapi.dev/api/planets/1/"
-            ],
-            "producer": "Gary Kurtz, Rick McCallum",
-            "release_date": "1977-05-25",
-            "species": [
-                "https://swapi.dev/api/species/1/"
-            ],
-            "starships": [
-                "https://swapi.dev/api/starships/2/"
-            ],
-            "title": "A New Hope",
-            "url": "https://swapi.dev/api/films/1/",
-            "vehicles": [
-                "https://swapi.dev/api/vehicles/4/"
-            ]
-        }
-    """.trimIndent()
-
-    private val starshipJson = """
-        {
-            "MGLT": "10 MGLT",
-            "cargo_capacity": "1000000000000",
-            "consumables": "3 years",
-            "cost_in_credits": "1000000000000",
-            "created": "2014-12-10T16:36:50.509000Z",
-            "crew": "342953",
-            "edited": "2014-12-10T16:36:50.509000Z",
-            "hyperdrive_rating": "4.0",
-            "length": "120000",
-            "manufacturer": "Imperial Department of Military Research, Sienar Fleet Systems",
-            "max_atmosphering_speed": "n/a",
-            "model": "DS-1 Orbital Battle Station",
-            "name": "Death Star",
-            "passengers": "843342",
-            "films": [
-                "https://swapi.dev/api/films/1/"
-            ],
-            "pilots": [],
-            "starship_class": "Deep Space Mobile Battlestation",
-            "url": "https://swapi.dev/api/starships/9/"
-        }
-    """.trimIndent()
-
-    private val vehicleJson = """
-        {
-            "cargo_capacity": "50000",
-            "consumables": "2 months",
-            "cost_in_credits": "150000",
-            "created": "2014-12-10T15:36:25.724000Z",
-            "crew": "46",
-            "edited": "2014-12-10T15:36:25.724000Z",
-            "length": "36.8",
-            "manufacturer": "Corellia Mining Corporation",
-            "max_atmosphering_speed": "30",
-            "model": "Digger Crawler",
-            "name": "Sand Crawler",
-            "passengers": "30",
-            "pilots": [],
-            "films": [
-                "https://swapi.dev/api/films/1/"
-            ],
-            "url": "https://swapi.dev/api/vehicles/4/",
-            "vehicle_class": "wheeled"
-        }
-    """.trimIndent()
-
-    private val speciesJson = """
-        {
-            "average_height": "2.1",
-            "average_lifespan": "400",
-            "classification": "Mammal",
-            "created": "2014-12-10T16:44:31.486000Z",
-            "designation": "Sentient",
-            "edited": "2014-12-10T16:44:31.486000Z",
-            "eye_colors": "blue, green, yellow, brown, golden, red",
-            "hair_colors": "black, brown",
-            "homeworld": "https://swapi.dev/api/planets/14/",
-            "language": "Shyriiwook",
-            "name": "Wookie",
-            "people": [
-                "https://swapi.dev/api/people/13/"
-            ],
-            "films": [
-                "https://swapi.dev/api/films/1/",
-                "https://swapi.dev/api/films/2/"
-            ],
-            "skin_colors": "gray",
-            "url": "https://swapi.dev/api/species/3/"
-        }
-    """.trimIndent()
-
-    private val planetJson = """
-        {
-            "climate": "Arid",
-            "created": "2014-12-09T13:50:49.641000Z",
-            "diameter": "10465",
-            "edited": "2014-12-15T13:48:16.167217Z",
-            "films": [
-                "https://swapi.dev/api/films/1/"
-            ],
-            "gravity": "1",
-            "name": "Tatooine",
-            "orbital_period": "304",
-            "population": "120000",
-            "residents": [
-                "https://swapi.dev/api/people/1/"
-            ],
-            "rotation_period": "23",
-            "surface_water": "1",
-            "terrain": "Dessert",
-            "url": "https://swapi.dev/api/planets/1/"
-        }
-    """.trimIndent()
 }

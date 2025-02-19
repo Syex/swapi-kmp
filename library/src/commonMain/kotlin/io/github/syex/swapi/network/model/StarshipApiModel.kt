@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/** The API model for a starship. */
 @Serializable
 data class StarshipApiModel(
     @SerialName("MGLT")
@@ -32,4 +33,14 @@ data class StarshipApiModel(
     @SerialName("starship_class")
     val starshipClass: String,
     val url: String,
+)
+
+/**
+ * An _expanded_ model contains the originally requested starship data along with additional
+ * details about their films and pilots.
+ */
+data class ExpandedStarshipApiModel(
+    val original: StarshipApiModel,
+    val films: List<FilmApiModel>,
+    val pilots: List<PeopleApiModel>,
 )

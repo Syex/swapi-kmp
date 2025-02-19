@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/** The API model for a planet. */
 @Serializable
 data class PlanetApiModel(
     val climate: String,
@@ -25,4 +26,14 @@ data class PlanetApiModel(
     val surfaceWater: String,
     val terrain: String,
     val url: String
+)
+
+/**
+ * An _expanded_ model contains the originally requested planet data along with additional
+ * details about their films and residents.
+ */
+data class ExpandedPlanetApiModel(
+    val original: PlanetApiModel,
+    val films: List<FilmApiModel>,
+    val residents: List<PeopleApiModel>,
 )

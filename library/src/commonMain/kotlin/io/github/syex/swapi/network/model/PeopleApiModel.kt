@@ -4,6 +4,7 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/** The API model for a person. */
 @Serializable
 data class PeopleApiModel(
     @SerialName("birth_year")
@@ -32,4 +33,17 @@ data class PeopleApiModel(
     val url: String,
     @SerialName("vehicles")
     val vehicleUrls: List<String>
+)
+
+/**
+ * An _expanded_ model contains the originally requested people data along with additional
+ * details about their films, homeworld species, starships, and vehicles.
+ */
+data class ExpandedPeopleApiModel(
+    val original: PeopleApiModel,
+    val films: List<FilmApiModel>,
+    val homeworld: PlanetApiModel,
+    val species: List<SpeciesApiModel>,
+    val starships: List<StarshipApiModel>,
+    val vehicles: List<VehicleApiModel>,
 )
