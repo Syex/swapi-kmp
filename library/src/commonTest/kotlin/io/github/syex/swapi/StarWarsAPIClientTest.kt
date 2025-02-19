@@ -16,6 +16,21 @@ import kotlin.test.Test
 class StarWarsAPIClientTest {
 
     @Test
+    fun `searchPeople should return a list of paged search results`() = runTest {
+        val client = StarWarsAPIClient.create {
+            httpClientEngine = buildMockEngine(
+                expectedRequestUrl = "https://swapi.dev/api/people?search=r2",
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.peopleJson) }
+            )
+        }
+
+        val pagedResponse = client.searchPeople(query = "r2")
+
+        pagedResponse.results.size shouldBe 1
+        pagedResponse.results.first().name shouldBe "Luke Skywalker"
+    }
+
+    @Test
     fun `getAllPeople should return a paged people response`() = runTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
@@ -60,6 +75,21 @@ class StarWarsAPIClientTest {
     }
 
     @Test
+    fun `searchFilms should return a list of paged film results`() = runTest {
+        val client = StarWarsAPIClient.create {
+            httpClientEngine = buildMockEngine(
+                expectedRequestUrl = "https://swapi.dev/api/films?search=r2",
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.filmJson) }
+            )
+        }
+
+        val pagedResponse = client.searchFilms(query = "r2")
+
+        pagedResponse.results.size shouldBe 1
+        pagedResponse.results.first().title shouldBe "A New Hope"
+    }
+
+    @Test
     fun `getAllFilms should return a paged film response`() = runTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
@@ -99,6 +129,21 @@ class StarWarsAPIClientTest {
         model.title shouldBe "A New Hope"
         model.url shouldBe "https://swapi.dev/api/films/1/"
         model.vehicleUrls shouldBe listOf("https://swapi.dev/api/vehicles/1/")
+    }
+
+    @Test
+    fun `searchStarships should return a list of paged starship results`() = runTest {
+        val client = StarWarsAPIClient.create {
+            httpClientEngine = buildMockEngine(
+                expectedRequestUrl = "https://swapi.dev/api/starships?search=r2",
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.starshipJson) }
+            )
+        }
+
+        val pagedResponse = client.searchStarships(query = "r2")
+
+        pagedResponse.results.size shouldBe 1
+        pagedResponse.results.first().name shouldBe "Death Star"
     }
 
     @Test
@@ -148,6 +193,21 @@ class StarWarsAPIClientTest {
     }
 
     @Test
+    fun `searchVehicles should return a list of paged vehicle results`() = runTest {
+        val client = StarWarsAPIClient.create {
+            httpClientEngine = buildMockEngine(
+                expectedRequestUrl = "https://swapi.dev/api/vehicles?search=r2",
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.vehicleJson) }
+            )
+        }
+
+        val pagedResponse = client.searchVehicles(query = "r2")
+
+        pagedResponse.results.size shouldBe 1
+        pagedResponse.results.first().name shouldBe "Sand Crawler"
+    }
+
+    @Test
     fun `getAllVehicles should return a paged vehicle response`() = runTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
@@ -192,6 +252,21 @@ class StarWarsAPIClientTest {
     }
 
     @Test
+    fun `searchSpecies should return a list of paged species results`() = runTest {
+        val client = StarWarsAPIClient.create {
+            httpClientEngine = buildMockEngine(
+                expectedRequestUrl = "https://swapi.dev/api/species?search=r2",
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.speciesJson) }
+            )
+        }
+
+        val pagedResponse = client.searchSpecies(query = "r2")
+
+        pagedResponse.results.size shouldBe 1
+        pagedResponse.results.first().name shouldBe "Wookie"
+    }
+
+    @Test
     fun `getAllSpecies should return a paged species response`() = runTest {
         val client = StarWarsAPIClient.create {
             httpClientEngine = buildMockEngine(
@@ -232,6 +307,21 @@ class StarWarsAPIClientTest {
         model.filmUrls.shouldNotBeEmpty()
         model.skinColors shouldBe "gray"
         model.url shouldBe "https://swapi.dev/api/species/1/"
+    }
+
+    @Test
+    fun `searchPlanets should return a list of paged planet results`() = runTest {
+        val client = StarWarsAPIClient.create {
+            httpClientEngine = buildMockEngine(
+                expectedRequestUrl = "https://swapi.dev/api/planets?search=r2",
+                contentBuilder = { buildPagedJsonResponse(TestDataProvider.planetJson) }
+            )
+        }
+
+        val pagedResponse = client.searchPlanets(query = "r2")
+
+        pagedResponse.results.size shouldBe 1
+        pagedResponse.results.first().name shouldBe "Tatooine"
     }
 
     @Test

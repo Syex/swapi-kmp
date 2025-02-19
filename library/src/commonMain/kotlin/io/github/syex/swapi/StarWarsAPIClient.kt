@@ -29,8 +29,16 @@ class StarWarsAPIClient internal constructor(
 ) {
 
     @Throws(Exception::class)
+    suspend fun searchPeople(query: String): PagedResponse<PeopleApiModel> =
+        httpClient.get("$BASE_API/$PATH_PEOPLE") {
+            url {
+                parameters.append("search", query.trim())
+            }
+        }.body()
+
+    @Throws(Exception::class)
     suspend fun getAllPeople(): PagedResponse<PeopleApiModel> =
-        httpClient.get("$BASE_API/people").body()
+        httpClient.get("$BASE_API/$PATH_PEOPLE").body()
 
     @Throws(Exception::class)
     suspend fun getPeopleByUrl(url: String): PeopleApiModel = httpClient.get(url).body()
@@ -58,8 +66,16 @@ class StarWarsAPIClient internal constructor(
     }
 
     @Throws(Exception::class)
+    suspend fun searchFilms(query: String): PagedResponse<FilmApiModel> =
+        httpClient.get("$BASE_API/$PATH_FILMS") {
+            url {
+                parameters.append("search", query.trim())
+            }
+        }.body()
+
+    @Throws(Exception::class)
     suspend fun getAllFilms(): PagedResponse<FilmApiModel> =
-        httpClient.get("$BASE_API/films").body()
+        httpClient.get("$BASE_API/$PATH_FILMS").body()
 
     @Throws(Exception::class)
     suspend fun getFilmByUrl(url: String): FilmApiModel = httpClient.get(url).body()
@@ -85,8 +101,16 @@ class StarWarsAPIClient internal constructor(
     }
 
     @Throws(Exception::class)
+    suspend fun searchStarships(query: String): PagedResponse<StarshipApiModel> =
+        httpClient.get("$BASE_API/$PATH_STARSHIPS") {
+            url {
+                parameters.append("search", query.trim())
+            }
+        }.body()
+
+    @Throws(Exception::class)
     suspend fun getAllStarships(): PagedResponse<StarshipApiModel> =
-        httpClient.get("$BASE_API/starships").body()
+        httpClient.get("$BASE_API/$PATH_STARSHIPS").body()
 
     @Throws(Exception::class)
     suspend fun getStarshipByUrl(url: String): StarshipApiModel = httpClient.get(url).body()
@@ -108,8 +132,16 @@ class StarWarsAPIClient internal constructor(
     }
 
     @Throws(Exception::class)
+    suspend fun searchVehicles(query: String): PagedResponse<VehicleApiModel> =
+        httpClient.get("$BASE_API/$PATH_VEHICLES") {
+            url {
+                parameters.append("search", query.trim())
+            }
+        }.body()
+
+    @Throws(Exception::class)
     suspend fun getAllVehicles(): PagedResponse<VehicleApiModel> =
-        httpClient.get("$BASE_API/vehicles").body()
+        httpClient.get("$BASE_API/$PATH_VEHICLES").body()
 
     @Throws(Exception::class)
     suspend fun getVehicleByUrl(url: String): VehicleApiModel = httpClient.get(url).body()
@@ -131,8 +163,16 @@ class StarWarsAPIClient internal constructor(
     }
 
     @Throws(Exception::class)
+    suspend fun searchSpecies(query: String): PagedResponse<SpeciesApiModel> =
+        httpClient.get("$BASE_API/$PATH_SPECIES") {
+            url {
+                parameters.append("search", query.trim())
+            }
+        }.body()
+
+    @Throws(Exception::class)
     suspend fun getAllSpecies(): PagedResponse<SpeciesApiModel> =
-        httpClient.get("$BASE_API/species").body()
+        httpClient.get("$BASE_API/$PATH_SPECIES").body()
 
     @Throws(Exception::class)
     suspend fun getSpeciesByUrl(url: String): SpeciesApiModel = httpClient.get(url).body()
@@ -156,8 +196,16 @@ class StarWarsAPIClient internal constructor(
     }
 
     @Throws(Exception::class)
+    suspend fun searchPlanets(query: String): PagedResponse<PlanetApiModel> =
+        httpClient.get("$BASE_API/$PATH_PLANETS") {
+            url {
+                parameters.append("search", query.trim())
+            }
+        }.body()
+
+    @Throws(Exception::class)
     suspend fun getAllPlanets(): PagedResponse<PlanetApiModel> =
-        httpClient.get("$BASE_API/planets").body()
+        httpClient.get("$BASE_API/$PATH_PLANETS").body()
 
     @Throws(Exception::class)
     suspend fun getPlanetByUrl(url: String): PlanetApiModel = httpClient.get(url).body()
@@ -183,6 +231,12 @@ class StarWarsAPIClient internal constructor(
 
     companion object Builder {
         private const val BASE_API = "https://swapi.dev/api"
+        private const val PATH_PLANETS = "planets"
+        private const val PATH_FILMS = "films"
+        private const val PATH_PEOPLE = "people"
+        private const val PATH_SPECIES = "species"
+        private const val PATH_VEHICLES = "vehicles"
+        private const val PATH_STARSHIPS = "starships"
 
         fun create(block: StarWarsAPIClientConfig.() -> Unit): StarWarsAPIClient {
             val config = StarWarsAPIClientConfig().apply(block)
