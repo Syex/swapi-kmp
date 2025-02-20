@@ -25,7 +25,7 @@ a Compose Multiplatform app.
 
 ## Installation
 
-```
+```kotlin
 repositories {
     mavenCentral()
 }
@@ -40,7 +40,7 @@ dependencies {
 
 The main class is the `StarWarsApiClient`. You get an instance via `StarWarsApiClient.create()`.
 
-```
+```kotlin
 val client = StarWarsApiClient.create()
 ```
 
@@ -49,7 +49,7 @@ receiver,
 which allows you to tweak some settings of the Ktor client, which is used to make the network calls.
 If you leave it the following defaults will be used:
 
-```
+```kotlin
 data class StarWarsAPIClientConfig(
     var httpClientEngine: HttpClientEngine? = null, // uses platform default then
     var connectTimeoutMs: Long = 10_000,
@@ -67,7 +67,7 @@ data class StarWarsAPIClientConfig(
 
 e.g.
 
-```
+```kotlin
 val client = StarWarsApiClient.create {
     connectTimeoutMs = 5_000L
 }
