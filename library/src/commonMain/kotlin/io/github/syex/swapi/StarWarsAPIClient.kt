@@ -23,6 +23,18 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
+/**
+ * Provides all entry points to the Star Wars API. Get an instance via [StarWarsAPIClient.create].
+ *
+ * Supported use cases are:
+ * - Searching on a specific endpoint with a query.
+ * - Fetching all entries of a specific endpoint.
+ * - Fetching a single entry of a specific endpoint by passing a URL.
+ *
+ * Additionally, the library introduces the concept of an _expanded_ model. A normal API response
+ * contains hyperlinks to other resources, but fetching an _expanded_ model has those hyperlinks
+ * already resolved.
+ */
 @Suppress("unused")
 class StarWarsAPIClient internal constructor(
     private val httpClient: HttpClient,
@@ -37,8 +49,8 @@ class StarWarsAPIClient internal constructor(
         }.body()
 
     @Throws(Exception::class)
-    suspend fun getAllPeople(): PagedResponse<PeopleApiModel> =
-        httpClient.get("$BASE_API/$PATH_PEOPLE").body()
+    suspend fun getAllPeople(pageUrl: String? = null): PagedResponse<PeopleApiModel> =
+        httpClient.get(pageUrl ?: "$BASE_API/$PATH_PEOPLE").body()
 
     @Throws(Exception::class)
     suspend fun getPeopleByUrl(url: String): PeopleApiModel = httpClient.get(url).body()
@@ -74,8 +86,8 @@ class StarWarsAPIClient internal constructor(
         }.body()
 
     @Throws(Exception::class)
-    suspend fun getAllFilms(): PagedResponse<FilmApiModel> =
-        httpClient.get("$BASE_API/$PATH_FILMS").body()
+    suspend fun getAllFilms(pageUrl: String? = null): PagedResponse<FilmApiModel> =
+        httpClient.get(pageUrl ?: "$BASE_API/$PATH_FILMS").body()
 
     @Throws(Exception::class)
     suspend fun getFilmByUrl(url: String): FilmApiModel = httpClient.get(url).body()
@@ -109,8 +121,8 @@ class StarWarsAPIClient internal constructor(
         }.body()
 
     @Throws(Exception::class)
-    suspend fun getAllStarships(): PagedResponse<StarshipApiModel> =
-        httpClient.get("$BASE_API/$PATH_STARSHIPS").body()
+    suspend fun getAllStarships(pageUrl: String? = null): PagedResponse<StarshipApiModel> =
+        httpClient.get(pageUrl ?: "$BASE_API/$PATH_STARSHIPS").body()
 
     @Throws(Exception::class)
     suspend fun getStarshipByUrl(url: String): StarshipApiModel = httpClient.get(url).body()
@@ -140,8 +152,8 @@ class StarWarsAPIClient internal constructor(
         }.body()
 
     @Throws(Exception::class)
-    suspend fun getAllVehicles(): PagedResponse<VehicleApiModel> =
-        httpClient.get("$BASE_API/$PATH_VEHICLES").body()
+    suspend fun getAllVehicles(pageUrl: String? = null): PagedResponse<VehicleApiModel> =
+        httpClient.get(pageUrl ?: "$BASE_API/$PATH_VEHICLES").body()
 
     @Throws(Exception::class)
     suspend fun getVehicleByUrl(url: String): VehicleApiModel = httpClient.get(url).body()
@@ -171,8 +183,8 @@ class StarWarsAPIClient internal constructor(
         }.body()
 
     @Throws(Exception::class)
-    suspend fun getAllSpecies(): PagedResponse<SpeciesApiModel> =
-        httpClient.get("$BASE_API/$PATH_SPECIES").body()
+    suspend fun getAllSpecies(pageUrl: String? = null): PagedResponse<SpeciesApiModel> =
+        httpClient.get(pageUrl ?: "$BASE_API/$PATH_SPECIES").body()
 
     @Throws(Exception::class)
     suspend fun getSpeciesByUrl(url: String): SpeciesApiModel = httpClient.get(url).body()
@@ -204,8 +216,8 @@ class StarWarsAPIClient internal constructor(
         }.body()
 
     @Throws(Exception::class)
-    suspend fun getAllPlanets(): PagedResponse<PlanetApiModel> =
-        httpClient.get("$BASE_API/$PATH_PLANETS").body()
+    suspend fun getAllPlanets(pageUrl: String? = null): PagedResponse<PlanetApiModel> =
+        httpClient.get(pageUrl ?: "$BASE_API/$PATH_PLANETS").body()
 
     @Throws(Exception::class)
     suspend fun getPlanetByUrl(url: String): PlanetApiModel = httpClient.get(url).body()
@@ -226,9 +238,6 @@ class StarWarsAPIClient internal constructor(
         }
     }
 
-    @Throws(Exception::class)
-    suspend fun <T> loadNextPage(pageUrl: String): PagedResponse<T> = httpClient.get(pageUrl).body()
-
     companion object Builder {
         private const val BASE_API = "https://swapi.dev/api"
         private const val PATH_PLANETS = "planets"
@@ -238,7 +247,12 @@ class StarWarsAPIClient internal constructor(
         private const val PATH_VEHICLES = "vehicles"
         private const val PATH_STARSHIPS = "starships"
 
-        fun create(block: StarWarsAPIClientConfig.() -> Unit): StarWarsAPIClient {
+        /**
+         * Creates a new [StarWarsAPIClient].
+         *
+         * You can use [block] to configure the client, see [StarWarsAPIClientConfig].
+         */
+        fun create(block: StarWarsAPIClientConfig.() -> Unit = {}): StarWarsAPIClient {
             val config = StarWarsAPIClientConfig().apply(block)
             val client = HttpClient(config.httpClientEngine ?: createDefaultHttpClientEngine()) {
                 install(HttpTimeout) {

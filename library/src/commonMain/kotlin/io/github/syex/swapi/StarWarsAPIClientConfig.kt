@@ -15,7 +15,7 @@ import kotlinx.serialization.json.Json
  * @param requestTimeoutMs The timeout for sending a request in milliseconds.
  * @param socketTimeoutMs The timeout for reading data from the server in milliseconds.
  * @param jsonConfig The serialization settings for JSON data.
- * @param additionalConfig A function to customize the HTTP client configuration further.
+ * @param additionalConfig A function to customize the Ktor HTTP client further.
  */
 data class StarWarsAPIClientConfig(
     var httpClientEngine: HttpClientEngine? = null,
