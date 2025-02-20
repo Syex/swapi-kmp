@@ -19,6 +19,7 @@ a Compose Multiplatform app.
 - Android
 - iOS
 - JVM
+- Wasm browser
 
 ----
 
