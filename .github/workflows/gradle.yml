@@ -12,14 +12,7 @@ permissions:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        include:
-          - target: iosSimulatorArm64Test
-            os: macos-latest
-          - target: testDebugUnitTest
-            os: ubuntu-latest
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -35,9 +28,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Check spotless
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Run spotless
         run: ./gradlew spotlessCheck --no-configuration-cache
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@093dfe9d598ec5a42246855d09b49dc76803c005
-        with:
-          arguments: ${{ matrix.target }}
+      - name: Run tests
+        run: ./gradlew testDebugUnitTest iosSimulatorArm64Test
