@@ -1,4 +1,4 @@
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.10-blue.svg?style=flat&logo=kotlin)](https://kotlinlang.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 ![Maven Central Version](https://img.shields.io/maven-central/v/io.github.syex/swapi)
 ![example workflow](https://github.com/Syex/swapi-kmp/actions/workflows/gradle.yml/badge.svg)
