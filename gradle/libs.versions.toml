@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.1"
 kotlin = "2.1.10"
+spotless = "7.0.2"
 kotlinx-serialization = "1.8.0"
 kotlinx-datetime = "0.6.2"
 android-minSdk = "24"
@@ -32,3 +33,4 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.30.0" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
